@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — ChessLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">♞</span> ChessLens <span class="beta">beta</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Analyze</a>
+      <a href="profile.html">My games</a>
+      <a href="about.html" class="active">About</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm" href="auth.html">Log in</a>
+      <a class="btn btn-sm" href="auth.html#register">Sign up</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="about-hero">
+    <h1>A game review that explains</h1>
+    <p>
+      ChessLens is a Telegram bot and web interface for analyzing chess games.
+      The engine finds the mistakes, and the AI coach explains them so you know
+      what to work on next.
+    </p>
+  </div>
+
+  <div class="about-content">
+    <h2>How the analysis works</h2>
+    <p>
+      Every position is evaluated by <strong>Stockfish</strong> (depth 16).
+      The evaluation is converted into a win probability, and each move is graded
+      by how much of that probability it gave away:
+    </p>
+
+    <table class="palette-table">
+      <thead>
+        <tr><th>Category</th><th>Condition</th><th>Meaning</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cat-ico Best">★</span> Best</td>
+          <td class="c-muted">matches the engine's top line</td>
+          <td class="c-muted">the strongest move in the position</td>
+        </tr>
+        <tr>
+          <td><span class="cat-ico Excellent">!</span> Excellent</td>
+          <td class="c-muted">loses ≤ 2%</td>
+          <td class="c-muted">nearly as good as the best move</td>
+        </tr>
+        <tr>
+          <td><span class="cat-ico Good">✓</span> Good</td>
+          <td class="c-muted">loses ≤ 5%</td>
+          <td class="c-muted">a sound, solid move</td>
+        </tr>
+        <tr>
+          <td><span class="cat-ico Book">≡</span> Book</td>
+          <td class="c-muted">known opening theory</td>
+          <td class="c-muted">a standard, well-established move</td>
+        </tr>
+        <tr>
+          <td><span class="cat-ico Forced">□</span> Forced</td>
+          <td class="c-muted">only reasonable move</td>
+          <td class="c-muted">no real alternative in the position</td>
+        </tr>
+        <tr>
+          <td><span class="cat-ico Inaccuracy">?!</span> Inaccuracy</td>
+          <td class="c-muted">loses ≤ 10%</td>
+          <td class="c-muted">part of the advantage slips away</td>
+        </tr>
+        <tr>
+          <td><span class="cat-ico Mistake">?</span> Mistake</td>
+          <td class="c-muted">loses ≤ 20%</td>
+          <td class="c-muted">seriously damages the position</td>
+        </tr>
+        <tr>
+          <td><span class="cat-ico Blunder">??</span> Blunder</td>
+          <td class="c-muted">loses &gt; 20%</td>
+          <td class="c-muted">changes the outcome of the game</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Roadmap</h2>
+    <p>
+      ✅ Analyze Chess.com and Lichess games by link<br>
+      ✅ Evaluation graph and move categories<br>
+      🔜 LLM commentary on the key moves<br>
+      🔜 Upload your own PGN files<br>
+      🔜 Progress stats across series of games
+    </p>
+
+    <h2>FAQ</h2>
+    <details class="faq-item">
+      <summary>Is it free?</summary>
+      <p>Yes, the basic review is free. Limits and a subscription will come later,
+         once LLM commentary is live.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How is this different from Chess.com's Game Review?</summary>
+      <p>It works with both platforms at once, lives in Telegram, and focuses on
+         explanations — not just grades.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do I need an account?</summary>
+      <p>No — reviewing a game by link works without logging in. An account lets you
+         link Chess.com/Lichess and keep your review history.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Can anyone see my games?</summary>
+      <p>Games on Chess.com and Lichess are public anyway. We only store the analysis
+         results for your history.</p>
+    </details>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>© 2026 ChessLens. Powered by Stockfish 18.</span>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="#">Telegram bot</a>
+      <a href="#">Feedback</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

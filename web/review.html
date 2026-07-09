@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Review — ChessLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">♞</span> ChessLens <span class="beta">beta</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Analyze</a>
+      <a href="profile.html">My games</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm" href="auth.html">Log in</a>
+      <a class="btn btn-sm" href="auth.html#register">Sign up</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="review-topbar">
+    <a class="back" href="index.html">← New analysis</a>
+    <div class="review-title">
+      <div class="players-line" id="players-line"></div>
+      <div class="game-meta" id="game-meta"></div>
+    </div>
+    <span class="source-tag chesscom">chess.com</span>
+    <a class="btn btn-ghost btn-sm" id="game-link" href="#" target="_blank" rel="noopener">
+      Open original ↗
+    </a>
+  </div>
+
+  <div class="review-layout">
+
+    <!-- left column: board + graph -->
+    <div class="board-column">
+      <div class="board-area">
+        <div class="evalbar">
+          <div class="white-fill" id="evalbar-white"></div>
+          <div class="eval-label on-white" id="evalbar-label">0.0</div>
+        </div>
+        <div class="board-wrap">
+          <div class="board" id="board"></div>
+          <svg class="arrow-layer" id="arrow-layer" viewBox="0 0 800 800"></svg>
+        </div>
+      </div>
+
+      <div class="board-controls">
+        <div class="nav-group">
+          <button class="nav-btn" id="btn-first" title="Game start (Home)">⏮</button>
+          <button class="nav-btn" id="btn-prev" title="Previous move (←)">◀</button>
+          <button class="nav-btn" id="btn-next" title="Next move (→)">▶</button>
+          <button class="nav-btn" id="btn-last" title="Game end (End)">⏭</button>
+        </div>
+        <span class="move-position" id="move-position">Starting position</span>
+        <div class="controls-right">
+          <button class="btn btn-soft btn-sm" id="btn-mistake">⚡ Next mistake</button>
+          <button class="nav-btn" id="btn-flip" title="Flip board (F)">⇅</button>
+        </div>
+      </div>
+
+      <div class="legend-hint">
+        <span><span class="swatch" style="background: var(--cat-inaccuracy)"></span>played move — colored by quality</span>
+        <span><span class="swatch" style="background: var(--cat-best); opacity: .55"></span>engine's best move</span>
+      </div>
+
+      <div class="card graph-card">
+        <h3>Evaluation graph</h3>
+        <div class="graph-svg-wrap">
+          <svg id="eval-graph" viewBox="0 0 1000 240" xmlns="http://www.w3.org/2000/svg"></svg>
+          <div class="graph-tooltip" id="graph-tooltip"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- right column (desktop DOM order): coach comment, moves, summary.
+         Mobile reorders these via `order` in the @media block. -->
+    <aside class="review-panel">
+
+      <!-- placeholder for the LLM commentary: plugged in later -->
+      <div class="card coach-card">
+        <div class="coach-head">
+          <span class="spark">✦</span>
+          <h3>Coach's comment</h3>
+        </div>
+        <div class="coach-move-ref" id="coach-move-ref">Starting position</div>
+        <div class="coach-placeholder" id="coach-comment">
+          <div class="skeleton-line" style="width: 96%"></div>
+          <div class="skeleton-line" style="width: 88%"></div>
+          <div class="skeleton-line" style="width: 64%"></div>
+        </div>
+        <p class="coach-note">
+          The move explanation will appear here: why it works or fails, and what to play instead.
+        </p>
+      </div>
+
+      <!-- moves + summary share one scroll area so the moves list can be tall;
+           coach stays pinned above. On mobile this wrapper is display:contents. -->
+      <div class="panel-scroll">
+        <div class="card moves-card">
+          <h3>Moves</h3>
+          <div class="move-list" id="move-list"></div>
+        </div>
+
+        <div class="card summary-card">
+          <h3>Game summary</h3>
+          <div class="accuracy-row">
+            <div class="acc-box white">
+              <div class="num" id="acc-white">—</div>
+              <div class="lbl" id="acc-white-name">White</div>
+            </div>
+            <div class="acc-box black">
+              <div class="num" id="acc-black">—</div>
+              <div class="lbl" id="acc-black-name">Black</div>
+            </div>
+          </div>
+          <table class="cat-table">
+            <tbody id="cat-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</main>
+
+<script src="js/data.js"></script>
+<script src="js/review.js"></script>
+<script>
+  document.getElementById("game-link").href = GAME.link;
+</script>
+</body>
+</html>

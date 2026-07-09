@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChessLens — chess game review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">♞</span> ChessLens <span class="beta">beta</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html" class="active">Analyze</a>
+      <a href="profile.html">My games</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm" href="auth.html">Log in</a>
+      <a class="btn btn-sm" href="auth.html#register">Sign up</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <h1>Review the game.<br>See <span class="accent">where it all went wrong</span>.</h1>
+      <p class="sub">
+        Paste a link to a Chess.com or Lichess game and get a full review:
+        every move graded, an evaluation graph, and plain-language explanations.
+      </p>
+
+      <div class="analyze-box" id="analyze-box">
+        <input id="analyze-input" type="text"
+          placeholder="Game link or player username…"
+          onkeydown="if(event.key==='Enter')handleAnalyzeSubmit()">
+        <button class="btn btn-lg" onclick="handleAnalyzeSubmit()">Analyze</button>
+      </div>
+      <div class="analyze-hint">
+        Chess.com and Lichess supported. Enter a username to browse a player's recent games.
+      </div>
+
+      <div class="example-chips">
+        <button class="chip" onclick="fillExample('https://www.chess.com/game/live/170431926836')">
+          Example: Chess.com link
+        </button>
+        <button class="chip" onclick="fillExample('konteyni')">Example: player username</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>What's inside a review</h2>
+      <p class="section-sub">Every game is analyzed with Stockfish — move by move.</p>
+      <div class="features">
+        <div class="feature-card">
+          <div class="icon">◈</div>
+          <h3>Every move graded</h3>
+          <p>From “Best” to “Blunder” — instantly see which moves decided the game
+             and which ones were precise.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">〽</div>
+          <h3>Evaluation graph</h3>
+          <p>The whole game on one curve: swings, turning points and forced-mate
+             zones — click anywhere to jump to that move.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon">✦</div>
+          <h3>Coach explanations</h3>
+          <p>Not just “mistake”, but why it's a mistake and what you should have
+             played — in plain human language.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <h3>Paste a link or username</h3>
+          <p>A game from Chess.com or Lichess, or a username — then pick a game from the list.</p>
+        </div>
+        <div class="step">
+          <h3>Wait for the analysis</h3>
+          <p>Stockfish evaluates every move and finds the strongest continuations.</p>
+        </div>
+        <div class="step">
+          <h3>Explore the review</h3>
+          <p>Board, graph, move list and commentary — all on one screen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="tg-banner">
+        <div>
+          <h3>Prefer Telegram?</h3>
+          <p>Send a game link to the bot — the review arrives right in the chat.</p>
+        </div>
+        <a class="btn btn-tg btn-lg" href="#">Open @ChessLensBot</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <span>© 2026 ChessLens. Powered by Stockfish 18.</span>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="#">Telegram bot</a>
+      <a href="#">Feedback</a>
+    </nav>
+  </div>
+</footer>
+
+<!-- modal: a player's recent games, found by username -->
+<div class="modal-overlay" id="player-modal" onclick="if(event.target===this)closePlayerModal()">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="avatar" id="modal-player-avatar">K</div>
+      <div class="who">
+        <div class="name" id="modal-player-name">konteyni</div>
+        <div class="meta">Found on Chess.com and Lichess · recent games</div>
+      </div>
+      <button class="modal-close" onclick="closePlayerModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-games"></div>
+  </div>
+</div>
+
+<script src="js/mock.js"></script>
+<script src="js/common.js"></script>
+<script>
+  function fillExample(v) {
+    document.getElementById("analyze-input").value = v;
+    document.getElementById("analyze-input").focus();
+  }
+</script>
+</body>
+</html>

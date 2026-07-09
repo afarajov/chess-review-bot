@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My games — ChessLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">♞</span> ChessLens <span class="beta">beta</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Analyze</a>
+      <a href="profile.html" class="active">My games</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm" href="index.html">Log out</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <div class="profile-layout">
+
+    <aside class="profile-side">
+      <div class="profile-user">
+        <div class="avatar">A</div>
+        <div>
+          <div class="name">Ali</div>
+          <div class="mail">alifarajovr@gmail.com</div>
+        </div>
+      </div>
+      <nav class="side-nav" id="profile-tabs">
+        <button data-pane="games" class="active" onclick="setProfileTab('games')">♟ My games</button>
+        <button data-pane="linked" onclick="setProfileTab('linked')">⛓ Linked accounts</button>
+        <button data-pane="settings" onclick="setProfileTab('settings')">⚙ Settings</button>
+      </nav>
+    </aside>
+
+    <section class="profile-pane">
+
+      <!-- MY GAMES -->
+      <div data-pane-of="profile-tabs" data-pane="games">
+        <h2>My games</h2>
+        <div class="filters">
+          <button class="chip active">All</button>
+          <button class="chip">Wins</button>
+          <button class="chip">Losses</button>
+          <button class="chip">Chess.com</button>
+          <button class="chip">Lichess</button>
+        </div>
+        <div class="card games-card" id="my-games"></div>
+      </div>
+
+      <!-- LINKED ACCOUNTS -->
+      <div data-pane-of="profile-tabs" data-pane="linked" style="display:none">
+        <h2>Linked accounts</h2>
+        <div class="link-card">
+          <div class="service-logo chesscom">♟</div>
+          <div class="link-info">
+            <div class="svc">Chess.com <span class="linked-badge">linked</span></div>
+            <div class="status ok">konteyni · 934 rapid · synced today</div>
+          </div>
+          <button class="btn btn-ghost btn-sm">Unlink</button>
+        </div>
+        <div class="link-card">
+          <div class="service-logo lichess">♞</div>
+          <div class="link-info">
+            <div class="svc">Lichess</div>
+            <div class="status">Not linked — Lichess games won't sync</div>
+          </div>
+          <button class="btn btn-sm">Link</button>
+        </div>
+        <p class="coach-note" style="margin-top: 14px">
+          Once linked, your recent games appear in the “My games” tab automatically.
+        </p>
+      </div>
+
+      <!-- SETTINGS -->
+      <div data-pane-of="profile-tabs" data-pane="settings" style="display:none">
+        <h2>Settings</h2>
+        <div class="card" style="max-width: 460px">
+          <div class="field">
+            <label>Username</label>
+            <input type="text" value="Ali">
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" value="alifarajovr@gmail.com">
+          </div>
+          <div class="field">
+            <label>Coach commentary language</label>
+            <input type="text" value="English">
+          </div>
+          <button class="btn">Save</button>
+        </div>
+      </div>
+
+    </section>
+  </div>
+</main>
+
+<script src="js/mock.js"></script>
+<script src="js/common.js"></script>
+<script>
+  function setProfileTab(name) {
+    switchTab(document.getElementById("profile-tabs"), name);
+  }
+  document.getElementById("my-games").innerHTML = MOCK_MY_GAMES.map(renderGameRow).join("");
+</script>
+</body>
+</html>
