@@ -96,17 +96,25 @@ web/
 | Категория | Значок | Цвет | Токен |
 |---|---|---|---|
 | Best | ★ | `#2bc47e` | `--cat-best` |
-| Excellent | ! | `#8fca44` | `--cat-excellent` |
+| Excellent | 👍 (SVG) | `#8fca44` | `--cat-excellent` |
 | Good | ✓ | `#a9b48b` | `--cat-good` |
 | Book | ≡ | `#b58863` | `--cat-book` |
-| Forced | □ | `#7f97b3` | `--cat-forced` |
+| Forced | □ | `#8b93a3` (серый; синий зарезервирован под Great) | `--cat-forced` |
 | Inaccuracy | ?! | `#e6b23c` | `--cat-inaccuracy` |
 | Mistake | ? | `#e0783c` | `--cat-mistake` |
+| Miss | ✕ | `#ee6b62` | `--cat-miss` |
 | Blunder | ?? | `#e4453b` | `--cat-blunder` |
 
 Порядок категорий (лучшие → худшие) задаётся в `CAT_LABEL` в `review.js` — он же
 определяет порядок строк в «Game summary». Добавить новую категорию = дописать её
 в `CAT_LABEL` / `CAT_SYM` / `CAT_COLOR` (review.js) и `.cat-ico.<Name>` (style.css).
+Значок Excellent — inline-SVG «лайк» (`THUMB_SVG` в review.js); значения `CAT_SYM`
+вставляются через innerHTML, так что и текстовые символы, и SVG работают одинаково.
+
+Подсветка клеток последнего хода (from/to) окрашивается **цветом категории** хода:
+`renderBoard()` пишет цвет в CSS-переменную `--move-tint` на `#board`, а
+`.sq.last-move::after` смешивает его с прозрачностью через `color-mix` (42%).
+Кнопка «⚡ Next mistake» и точки на графике учитывают Inaccuracy/Mistake/Miss/Blunder.
 
 Основной акцент — янтарный `--accent: #e8a33d`, тёмный фон `--bg: #0f1218`.
 Все цвета определены CSS-переменными в начале `style.css` — менять тему можно в одном месте.

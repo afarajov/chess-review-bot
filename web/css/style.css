@@ -33,9 +33,10 @@
   --cat-excellent: #8fca44;
   --cat-good: #a9b48b;
   --cat-book: #b58863;      /* opening theory — warm tan */
-  --cat-forced: #7f97b3;    /* only move — steel blue */
+  --cat-forced: #afb4bd;    /* only move — gray (blue is reserved for Great) */
   --cat-inaccuracy: #e6b23c;
   --cat-mistake: #e0783c;
+  --cat-miss: #ee6b62;      /* missed opportunity — coral */
   --cat-blunder: #e4453b;
 
   /* eval graph */
@@ -635,7 +636,8 @@ h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 0.5em; font-weight: 700; }
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--sq-last);
+  /* --move-tint is set on #board by renderBoard(): the played move's category colour */
+  background: color-mix(in srgb, var(--move-tint, var(--sq-last)) 42%, transparent);
 }
 
 .sq .piece {
@@ -868,7 +870,11 @@ h1, h2, h3, h4 { line-height: 1.2; margin: 0 0 0.5em; font-weight: 700; }
 .cat-ico.Forced { background: var(--cat-forced); }
 .cat-ico.Inaccuracy { background: var(--cat-inaccuracy); }
 .cat-ico.Mistake { background: var(--cat-mistake); }
+.cat-ico.Miss { background: var(--cat-miss); color: #fff; }
 .cat-ico.Blunder { background: var(--cat-blunder); color: #fff; }
+
+/* inline SVG icons inside badges (e.g. the Excellent thumbs-up) */
+.cat-ico svg { width: 62%; height: 62%; display: block; }
 
 /* --- coach comment --- */
 

@@ -13,12 +13,16 @@ const CAT_LABEL = {
   Forced: "Forced",
   Inaccuracy: "Inaccuracy",
   Mistake: "Mistake",
+  Miss: "Miss",
   Blunder: "Blunder",
 };
 
+// thumbs-up icon for Excellent (inline SVG so it inherits the badge colour)
+const THUMB_SVG = `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.72v-2z"/></svg>`;
+
 const CAT_SYM = {
-  Best: "★", Excellent: "!", Good: "✓", Book: "≡", Forced: "□",
-  Inaccuracy: "?!", Mistake: "?", Blunder: "??",
+  Best: "★", Excellent: THUMB_SVG, Good: "✓", Book: "≡", Forced: "□",
+  Inaccuracy: "?!", Mistake: "?", Miss: "✕", Blunder: "??",
 };
 
 const CAT_COLOR = {
@@ -29,6 +33,7 @@ const CAT_COLOR = {
   Forced: "var(--cat-forced)",
   Inaccuracy: "var(--cat-inaccuracy)",
   Mistake: "var(--cat-mistake)",
+  Miss: "var(--cat-miss)",
   Blunder: "var(--cat-blunder)",
 };
 
@@ -121,6 +126,8 @@ function renderBoard(fromPly) {
     }
   }
   boardEl.innerHTML = html;
+  // tint the from/to squares with the played move's category colour
+  boardEl.style.setProperty("--move-tint", category ? CAT_COLOR[category] : "transparent");
   animateMove(fromPly);
   renderArrows();
 }
@@ -264,7 +271,7 @@ function renderGraph() {
   // dots on notable moves
   let dots = "";
   GAME.moves.forEach((m, i) => {
-    if (["Inaccuracy", "Mistake", "Blunder"].includes(m.category)) {
+    if (["Inaccuracy", "Mistake", "Miss", "Blunder"].includes(m.category)) {
       const p = pts[i + 1];
       dots += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="6"
         fill="${CAT_COLOR[m.category]}" stroke="#0f1218" stroke-width="2"/>`;
@@ -478,7 +485,7 @@ function goTo(p) {
 
 function nextMistake() {
   for (let i = ply + 1; i < N; i++) {
-    if (["Inaccuracy", "Mistake", "Blunder"].includes(GAME.moves[i].category)) {
+    if (["Inaccuracy", "Mistake", "Miss", "Blunder"].includes(GAME.moves[i].category)) {
       goTo(i);
       return;
     }
